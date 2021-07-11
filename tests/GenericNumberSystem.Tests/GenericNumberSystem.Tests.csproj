@@ -21,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\source\GenericNumberSystem\GenericNumberSystem\GenericNumberSystem.csproj" />
+    <ProjectReference Include="..\..\source\GenericNumberSystem.Abstractions\GenericNumberSystem.Abstractions.csproj" />
+    <ProjectReference Include="..\..\source\GenericNumberSystem\GenericNumberSystem.csproj" />
   </ItemGroup>
 
 </Project>
