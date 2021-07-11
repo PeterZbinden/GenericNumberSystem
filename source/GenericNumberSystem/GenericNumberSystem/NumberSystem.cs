@@ -6,7 +6,7 @@ namespace GenericNumberSystem
 {
     public class NumberSystem : INumberSystem
     {
-        private readonly string _availableNumbers;
+        public string AvailableNumbers { get; }
         private readonly string _minusSign;
         private readonly Position _minusSignPosition;
 
@@ -14,14 +14,14 @@ namespace GenericNumberSystem
             string minusSign = "-",
             Position minusSignPosition = Position.Front)
         {
-            _availableNumbers = availableNumbers;
+            AvailableNumbers = availableNumbers;
             _minusSign = minusSign;
             _minusSignPosition = minusSignPosition;
         }
 
         public string ConvertTo(long input)
         {
-            var charCount = _availableNumbers.Length;
+            var charCount = AvailableNumbers.Length;
             var builder = new StringBuilder();
 
             var inputIsNegative = input < 0;
@@ -47,12 +47,12 @@ namespace GenericNumberSystem
                     index = rest / positionValue;
                 }
 
-                if (index >= _availableNumbers.Length || index < 0)
+                if (index >= AvailableNumbers.Length || index < 0)
                 {
                     throw new ApplicationException($"Impossible Index of {index}");
                 }
 
-                builder.Insert(0, _availableNumbers[(int)index]);
+                builder.Insert(0, AvailableNumbers[(int)index]);
 
                 temp -= index * positionValue;
 
@@ -95,14 +95,14 @@ namespace GenericNumberSystem
                 isNegative = true;
             }
             
-            var charCount = _availableNumbers.Length;
+            var charCount = AvailableNumbers.Length;
             var position = 1;
             for (int i = 0; i < number.Length; i++)
             {
                 var positionValue = (long)Math.Pow(charCount, position - 1);
                 var c = number[number.Length -1 - i];
 
-                var count = _availableNumbers.IndexOf(c);
+                var count = AvailableNumbers.IndexOf(c);
 
                 result += count * positionValue;
                 position++;
@@ -112,6 +112,29 @@ namespace GenericNumberSystem
             {
                 result = result * -1;
             }
+
+            return result;
+        }
+
+        public bool Equals(object x, object y)
+        {
+            if (x is NumberSystem nsX && y is NumberSystem nsY)
+            {
+                return nsX._minusSign == nsY._minusSign
+                && nsX.AvailableNumbers == nsY.AvailableNumbers
+                && nsX._minusSignPosition == nsY._minusSignPosition;
+            }
+
+            return false;
+        }
+
+        public int GetHashCode(object obj)
+        {
+            var result = 0;
+
+            result += _minusSign.GetHashCode();
+            result += AvailableNumbers.GetHashCode();
+            result += _minusSignPosition.GetHashCode();
 
             return result;
         }
