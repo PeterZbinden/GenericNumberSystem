@@ -11,12 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericNumberSystem.Abstrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericNumberSystem.Tests", "..\tests\GenericNumberSystem.Tests\GenericNumberSystem.Tests.csproj", "{BAB358B1-B739-47B0-8699-0A8767BBDAA1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build", "..\build\build.csproj", "{1ED32EE6-0A89-4681-A929-8B6919857993}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ED32EE6-0A89-4681-A929-8B6919857993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED32EE6-0A89-4681-A929-8B6919857993}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED7D8A51-849B-4080-B00B-74BED8023F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED7D8A51-849B-4080-B00B-74BED8023F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED7D8A51-849B-4080-B00B-74BED8023F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
