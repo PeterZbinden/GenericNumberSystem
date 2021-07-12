@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 
 echo $(bash --version 2>&1 | head -n 1)
 
