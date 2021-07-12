@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Text;
 using GenericNumberSystem.Abstractions;
 
@@ -116,27 +117,16 @@ namespace GenericNumberSystem
             return result;
         }
 
-        public bool Equals(object x, object y)
+        public override bool Equals(object obj)
         {
-            if (x is NumberSystem nsX && y is NumberSystem nsY)
+            if (obj is NumberSystem nsY)
             {
-                return nsX._minusSign == nsY._minusSign
-                && nsX.AvailableNumbers == nsY.AvailableNumbers
-                && nsX._minusSignPosition == nsY._minusSignPosition;
+                return _minusSign == nsY._minusSign
+                       && AvailableNumbers == nsY.AvailableNumbers
+                       && _minusSignPosition == nsY._minusSignPosition;
             }
 
             return false;
-        }
-
-        public int GetHashCode(object obj)
-        {
-            var result = 0;
-
-            result += _minusSign.GetHashCode();
-            result += AvailableNumbers.GetHashCode();
-            result += _minusSignPosition.GetHashCode();
-
-            return result;
         }
     }
 }

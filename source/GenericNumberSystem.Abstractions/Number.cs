@@ -4,98 +4,169 @@ namespace GenericNumberSystem.Abstractions
 {
     public class Number
     {
-        public long DecimalNumber { get; }
+        /// <summary>
+        /// The decimal representation of the value
+        /// </summary>
+        public long Value { get; }
+        /// <summary>
+        /// The number system that was used to create this number
+        /// </summary>
         public INumberSystem NumberSystem { get; }
 
-        public Number(long number, INumberSystem numberSystem)
+        /// <summary>
+        /// Creates a new Number using a decimal value and a number system
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="numberSystem"></param>
+        public Number(long value, INumberSystem numberSystem)
         {
-            DecimalNumber = number;
+            Value = value;
             NumberSystem = numberSystem;
+        }
+
+        public string GetNumberSystemRepresentation()
+        {
+            return NumberSystem.ConvertTo(Value);
         }
 
         public override string ToString()
         {
-            return NumberSystem.ConvertTo(DecimalNumber);
+            return GetNumberSystemRepresentation();
         }
 
         public static Number operator +(Number a, long b)
         {
-            return new Number(a.DecimalNumber + b, a.NumberSystem);
+            return new Number(a.Value + b, a.NumberSystem);
+        }
+
+        public static Number operator +(long a, Number b)
+        {
+            return new Number(a + b.Value, b.NumberSystem);
         }
 
         public static Number operator -(Number a, long b)
         {
-            return new Number(a.DecimalNumber - b, a.NumberSystem);
+            return new Number(a.Value - b, a.NumberSystem);
+        }
+
+        public static Number operator -(long a, Number b)
+        {
+            return new Number(a - b.Value, b.NumberSystem);
         }
 
         public static Number operator *(Number a, long b)
         {
-            return new Number(a.DecimalNumber * b, a.NumberSystem);
+            return new Number(a.Value * b, a.NumberSystem);
+        }
+
+        public static Number operator *(long a, Number b)
+        {
+            return new Number(a * b.Value, b.NumberSystem);
         }
 
         public static Number operator /(Number a, long b)
         {
-            return new Number(a.DecimalNumber / b, a.NumberSystem);
+            return new Number(a.Value / b, a.NumberSystem);
+        }
+
+        public static Number operator /(long a, Number b)
+        {
+            return new Number(a / b.Value, b.NumberSystem);
         }
 
         public static Number operator ^(Number a, long b)
         {
-            return new Number(a.DecimalNumber ^ b, a.NumberSystem);
+            return new Number(a.Value ^ b, a.NumberSystem);
+        }
+
+        public static Number operator ^(long a, Number b)
+        {
+            return new Number(a ^ b.Value, b.NumberSystem);
         }
 
         public static bool operator ==(Number a, long b)
         {
-            return a.DecimalNumber == b;
+            return a.Value == b;
+        }
+
+        public static bool operator ==(long a, Number b)
+        {
+            return a == b.Value;
         }
 
         public static bool operator !=(Number a, long b)
         {
-            return a.DecimalNumber != b;
+            return a.Value != b;
+        }
+
+        public static bool operator !=(long a, Number b)
+        {
+            return a != b.Value;
         }
 
         public static bool operator <(Number a, long b)
         {
-            return a.DecimalNumber < b;
+            return a.Value < b;
+        }
+
+        public static bool operator <(long a, Number b)
+        {
+            return a < b.Value;
         }
 
         public static bool operator >(Number a, long b)
         {
-            return a.DecimalNumber > b;
+            return a.Value > b;
+        }
+
+        public static bool operator >(long a, Number b)
+        {
+            return a > b.Value;
         }
 
         public static bool operator <=(Number a, long b)
         {
-            return a.DecimalNumber <= b;
+            return a.Value <= b;
+        }
+
+        public static bool operator <=(long a, Number b)
+        {
+            return a <= b.Value;
         }
 
         public static bool operator >=(Number a, long b)
         {
-            return a.DecimalNumber >= b;
+            return a.Value >= b;
+        }
+
+        public static bool operator >=(long a, Number b)
+        {
+            return a >= b.Value;
         }
 
         public static Number operator +(Number a, Number b)
         {
-            return Calculate(a, b, (x, y) => x + y);
+            return GetResult(a, b, (x, y) => x + y);
         }
 
         public static Number operator -(Number a, Number b)
         {
-            return Calculate(a, b, (x, y) => x - y);
+            return GetResult(a, b, (x, y) => x - y);
         }
 
         public static Number operator *(Number a, Number b)
         {
-            return Calculate(a, b, (x, y) => x * y);
+            return GetResult(a, b, (x, y) => x * y);
         }
 
         public static Number operator /(Number a, Number b)
         {
-            return Calculate(a, b, (x, y) => x / y);
+            return GetResult(a, b, (x, y) => x / y);
         }
 
         public static Number operator ^(Number a, Number b)
         {
-            return Calculate(a, b, (x, y) => x ^ y);
+            return GetResult(a, b, (x, y) => x ^ y);
         }
 
         public static bool operator ==(Number a, Number b)
@@ -110,28 +181,28 @@ namespace GenericNumberSystem.Abstractions
 
         public static bool operator <(Number a, Number b)
         {
-            return a.DecimalNumber < b.DecimalNumber;
+            return a.Value < b.Value;
         }
 
         public static bool operator >(Number a, Number b)
         {
-            return a.DecimalNumber > b.DecimalNumber;
+            return a.Value > b.Value;
         }
 
         public static bool operator <=(Number a, Number b)
         {
-            return a.DecimalNumber <= b.DecimalNumber;
+            return a.Value <= b.Value;
         }
 
         public static bool operator >=(Number a, Number b)
         {
-            return a.DecimalNumber >= b.DecimalNumber;
+            return a.Value >= b.Value;
         }
 
-        private static Number Calculate(Number a, Number b, Func<long, long, long> operation)
+        private static Number GetResult(Number a, Number b, Func<long, long, long> operation)
         {
             ThrowIfNumbersystemsAreDifferent(a, b);
-            return new Number(operation(a.DecimalNumber, b.DecimalNumber), a.NumberSystem);
+            return new Number(operation(a.Value, b.Value), a.NumberSystem);
         }
 
         private static void ThrowIfNumbersystemsAreDifferent(Number a, Number b)

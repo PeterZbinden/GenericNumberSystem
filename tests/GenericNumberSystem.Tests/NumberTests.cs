@@ -38,7 +38,45 @@ namespace GenericNumberSystem.Tests
             var x = a + b;
 
             // Assert
-            x.DecimalNumber.Should().Be(2);
+            x.Value.Should().Be(2);
+        }
+
+        [Theory]
+        [InlineData(1, 1, 2)]
+        [InlineData(0, 0, 0)]
+        [InlineData(1, 2, 3)]
+        [InlineData(1000, 1000, 2000)]
+        [InlineData(-1000, -1000, -2000)]
+        public void When_AddingTwoNumbersOfSameNumberSystem_Expected_CorrectResult(int a, int b, int expectedResult)
+        {
+            // Arrange
+            var numberA = a.ToBinary();
+            var numberB = b.ToBinary();
+
+            // Act
+            var result = numberA + numberB;
+
+            // Assert
+            result.Value.Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData(1, 1, 0)]
+        [InlineData(0, 0, 0)]
+        [InlineData(1, 2, -1)]
+        [InlineData(1000, 1000, 0)]
+        [InlineData(-1000, -1000, 0)]
+        public void When_SubtractingTwoNumbersOfSameNumberSystem_Expected_CorrectResult(int a, int b, int expectedResult)
+        {
+            // Arrange
+            var numberA = a.ToBinary();
+            var numberB = b.ToBinary();
+
+            // Act
+            var result = numberA - numberB;
+
+            // Assert
+            result.Value.Should().Be(expectedResult);
         }
     }
 }

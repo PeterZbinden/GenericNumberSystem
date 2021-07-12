@@ -1,8 +1,6 @@
-﻿using System.Collections;
-
-namespace GenericNumberSystem.Abstractions
+﻿namespace GenericNumberSystem.Abstractions
 {
-    public interface INumberSystem : IEqualityComparer
+    public interface INumberSystem
     {
         /// <summary>
         /// Converts a given decimal number into the defined NumberSystem
