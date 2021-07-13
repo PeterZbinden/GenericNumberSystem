@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
@@ -32,10 +33,13 @@ class Build : NukeBuild
 
     public static int Main () => Execute<Build>(x => x.Compile);
 
+    [Parameter]
+    string NuGetApiKey { get; }
+
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly string Configuration = IsLocalBuild ? "Debug" : "Release";
 
-    string Version = "1.0.0";
+    string Version = "1.0.1";
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
@@ -88,6 +92,19 @@ class Build : NukeBuild
                     .SetPackageProjectUrl("https://github.com/PeterZbinden/GenericNumberSystem")
                     .SetRepositoryUrl("https://github.com/PeterZbinden/GenericNumberSystem")
                     .EnableNoRestore());
+            }
+
+            if (!string.IsNullOrEmpty(NuGetApiKey))
+            {
+                var nugets = Directory.GetFiles(OutputDirectory, "*.nupkg");
+
+                foreach (var nuget in nugets)
+                {
+                    DotNetNuGetPush(_ => _
+                        .SetTargetPath(nuget)
+                        .SetSource("https://api.nuget.org/v3/index.json")
+                        .SetApiKey(NuGetApiKey));
+                }
             }
         });
 

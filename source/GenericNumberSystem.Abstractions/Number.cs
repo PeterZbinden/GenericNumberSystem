@@ -199,6 +199,33 @@ namespace GenericNumberSystem.Abstractions
             return a.Value >= b.Value;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is Number n)
+            {
+                return Value == n.Value;
+            }
+            if (obj is long l)
+            {
+                return Value == l;
+            }
+            if (obj is int i)
+            {
+                return Value == i;
+            }
+            if (obj is byte b)
+            {
+                return Value == b;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
+
         private static Number GetResult(Number a, Number b, Func<long, long, long> operation)
         {
             ThrowIfNumbersystemsAreDifferent(a, b);
