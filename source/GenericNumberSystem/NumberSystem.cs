@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using GenericNumberSystem.Abstractions;
 
@@ -21,6 +22,14 @@ namespace GenericNumberSystem
             AvailableNumbers = availableNumbers;
             _minusSign = minusSign;
             _minusSignPosition = minusSignPosition;
+
+            foreach (var n in availableNumbers)
+            {
+                if (availableNumbers.Count(c => c == n) > 1)
+                {
+                    throw new ApplicationException($"The character '{n}' is contained more than once in the {nameof(availableNumbers)}, this is not supported.");
+                }
+            }
         }
 
         public string Convert(long input)
