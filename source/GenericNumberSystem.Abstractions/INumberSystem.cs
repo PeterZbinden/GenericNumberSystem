@@ -7,12 +7,12 @@
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        string ConvertTo(long number);
+        string Convert(long number);
         /// <summary>
         /// Converts a number within the defined NumberSystem back into a useable decimal format.
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        long Parse(string number);
+        Number Parse(string number);
     }
 }

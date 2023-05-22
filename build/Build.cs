@@ -17,7 +17,6 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
 [UnsetVisualStudioEnvironmentVariables]
 [GitHubActions("Build", GitHubActionsImage.UbuntuLatest, AutoGenerate = true, On = new GitHubActionsTrigger[]
     {

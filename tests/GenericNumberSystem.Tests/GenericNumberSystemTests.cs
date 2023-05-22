@@ -40,7 +40,7 @@ namespace GenericNumberSystem.Tests
             var sut = new NumberSystem("0123456789");
 
             // Act
-            var result = sut.ConvertTo(input);
+            var result = sut.Convert(input);
 
             // Assert
             result.Should().Be(input.ToString(CultureInfo.InvariantCulture));
@@ -63,7 +63,7 @@ namespace GenericNumberSystem.Tests
             var sut = new NumberSystem("01");
 
             // Act
-            var result = sut.ConvertTo(input);
+            var result = sut.Convert(input);
 
             // Assert
             result.Should().Be(expectedResult);
@@ -87,7 +87,7 @@ namespace GenericNumberSystem.Tests
             var sut = new NumberSystem("012");
 
             // Act
-            var result = sut.ConvertTo(input);
+            var result = sut.Convert(input);
 
             // Assert
             result.Should().Be(expectedResult);
@@ -105,7 +105,7 @@ namespace GenericNumberSystem.Tests
             var sut = new NumberSystem("01", minusSign: minusSign, Position.Front);
 
             // Act
-            var result = sut.ConvertTo(negativeNumber);
+            var result = sut.Convert(negativeNumber);
 
             // Assert
             result.Should().StartWith(minusSign);
@@ -123,7 +123,7 @@ namespace GenericNumberSystem.Tests
             var sut = new NumberSystem("01", minusSign: minusSign, Position.Back);
 
             // Act
-            var result = sut.ConvertTo(negativeNumber);
+            var result = sut.Convert(negativeNumber);
 
             // Assert
             result.Should().EndWith(minusSign);
@@ -155,7 +155,7 @@ namespace GenericNumberSystem.Tests
             var result = sut.Parse(input.ToString(CultureInfo.InvariantCulture));
 
             // Assert
-            result.Should().Be(input);
+            result.Value.Should().Be(input);
         }
 
         [Theory]
@@ -184,7 +184,7 @@ namespace GenericNumberSystem.Tests
             var result = sut.Parse(binaryInput);
 
             // Assert
-            result.Should().Be(expectedResult);
+            result.Value.Should().Be(expectedResult);
         }
     }
 }

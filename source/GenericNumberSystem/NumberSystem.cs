@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Text;
 using GenericNumberSystem.Abstractions;
 
@@ -7,6 +6,10 @@ namespace GenericNumberSystem
 {
     public class NumberSystem : INumberSystem
     {
+        public static readonly NumberSystem Octal = new NumberSystem("01234567");
+        public static readonly NumberSystem Hex = new NumberSystem("0123456789abcdef");
+        public static readonly NumberSystem Binary = new NumberSystem("01");
+
         public string AvailableNumbers { get; }
         private readonly string _minusSign;
         private readonly Position _minusSignPosition;
@@ -20,7 +23,7 @@ namespace GenericNumberSystem
             _minusSignPosition = minusSignPosition;
         }
 
-        public string ConvertTo(long input)
+        public string Convert(long input)
         {
             var charCount = AvailableNumbers.Length;
             var builder = new StringBuilder();
@@ -80,7 +83,7 @@ namespace GenericNumberSystem
             return builder.ToString();
         }
 
-        public long Parse(string number)
+        public Number Parse(string number)
         {
             var result = 0L;
             
@@ -114,7 +117,21 @@ namespace GenericNumberSystem
                 result = result * -1;
             }
 
-            return result;
+            return new Number(result, this);
+        }
+
+        public bool TryParse(string number, out Number result)
+        {
+            try
+            {
+                result = Parse(number);
+                return true;
+            }
+            catch (Exception e)
+            {
+                result = null;
+                return false;
+            }
         }
 
         public override bool Equals(object obj)

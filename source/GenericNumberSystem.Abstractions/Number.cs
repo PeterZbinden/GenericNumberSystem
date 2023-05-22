@@ -26,7 +26,7 @@ namespace GenericNumberSystem.Abstractions
 
         public string GetNumberSystemRepresentation()
         {
-            return NumberSystem.ConvertTo(Value);
+            return NumberSystem.Convert(Value);
         }
 
         public override string ToString()
@@ -228,16 +228,7 @@ namespace GenericNumberSystem.Abstractions
 
         private static Number GetResult(Number a, Number b, Func<long, long, long> operation)
         {
-            ThrowIfNumbersystemsAreDifferent(a, b);
             return new Number(operation(a.Value, b.Value), a.NumberSystem);
-        }
-
-        private static void ThrowIfNumbersystemsAreDifferent(Number a, Number b)
-        {
-            if (!a.NumberSystem.Equals(b.NumberSystem))
-            {
-                throw new NotSameNumberSystemUsedException();
-            }
         }
     }
 }

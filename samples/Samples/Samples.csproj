@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\GenericNumberSystem.Abstractions\GenericNumberSystem.Abstractions.csproj" />
+    <ProjectReference Include="..\..\source\GenericNumberSystem\GenericNumberSystem.csproj" />
+  </ItemGroup>
+
+</Project>

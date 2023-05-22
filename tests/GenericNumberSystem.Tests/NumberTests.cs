@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GenericNumberSystem.Abstractions;
 using Xunit;
 
@@ -8,7 +7,7 @@ namespace GenericNumberSystem.Tests
     public class NumberTests
     {
         [Fact]
-        public void When_AddingNumbersWithDifferentNumberSystems_Expected_ExceptionThrown()
+        public void When_AddingNumbersWithDifferentNumberSystems_Expected_CorrectResult()
         {
             // Arrange
             var numberSystemA = new NumberSystem("01");
@@ -17,13 +16,10 @@ namespace GenericNumberSystem.Tests
             var b = new Number(1, numberSystemB);
 
             // Act
-            Action call = () =>
-            {
-                var x = a + b;
-            };
+            var x = a + b;
 
             // Assert
-            call.Should().Throw<NotSameNumberSystemUsedException>();
+            x.Value.Should().Be(2);
         }
 
         [Fact]
