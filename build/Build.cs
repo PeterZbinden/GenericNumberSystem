@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -93,6 +94,13 @@ class Build : NukeBuild
                     .EnableNoRestore());
             }
 
+            Console.WriteLine("Environment-Variables:");
+
+            foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
+            {
+                Console.WriteLine($"{kv.Key}: {kv.Value}");
+            }
+
             if (!string.IsNullOrEmpty(NuGetApiKey))
             {
                 var nugets = Directory.GetFiles(OutputDirectory, "*.nupkg");
@@ -104,6 +112,10 @@ class Build : NukeBuild
                         .SetSource("https://api.nuget.org/v3/index.json")
                         .SetApiKey(NuGetApiKey));
                 }
+            }
+            else
+            {
+                Console.WriteLine("No API-Key provided for NuGet Upload");
             }
         });
 
